@@ -19,11 +19,9 @@ public class SelectHandlerRunnable implements Runnable {
 	@Override
 	public void run() {
 
-		int numberOfColumns = 0;
-
 		try {
 			ResultSetMetaData resultSetMetaData = preparedStatement.getMetaData();
-			numberOfColumns = resultSetMetaData.getColumnCount();
+			int numberOfColumns = resultSetMetaData.getColumnCount();
 
 			ResultSet resultSet = preparedStatement.getResultSet();
 

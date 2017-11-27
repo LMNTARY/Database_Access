@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class SQLExecutor {
 
 	private DatabaseAccess databaseAccess;
@@ -45,10 +48,18 @@ public class SQLExecutor {
 			}
 			isExecuted = true;
 		} catch (SQLException e) {
-			System.err.println("Execution of SQL statement '" + query
-					+ "' failed. Check your url, username, password! Check your SQL statement!");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Could not execute SQL statement!");
+			alert.setContentText("Check your url, username, password! Check your SQL statement!");
+			alert.showAndWait();
+
 		} catch (ClassNotFoundException e) {
-			System.err.println("Check driver path!");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Driver path is incorrect!");
+			alert.setContentText("Check your driver path.");
+			alert.showAndWait();
 		}
 
 		return isExecuted;
