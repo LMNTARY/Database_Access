@@ -54,7 +54,7 @@ public class MainView extends Stage {
 
 			@Override
 			public void handle(WindowEvent event) {
-				executorService.shutdownNow();
+				executorService.shutdown();
 			}
 		});
 
