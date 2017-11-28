@@ -13,10 +13,12 @@ public class SQLExecutor {
 
 	private DatabaseAccess databaseAccess;
 	private ExecutorService executorService;
+	private SelectTableView table;
 
-	public SQLExecutor(DatabaseAccess databaseAccess, ExecutorService executorService) {
+	public SQLExecutor(DatabaseAccess databaseAccess, ExecutorService executorService, SelectTableView table) {
 		this.databaseAccess = databaseAccess;
 		this.executorService = executorService;
+		this.table = table;
 	}
 
 	public boolean executeSQLStatement(String query) {
@@ -41,7 +43,7 @@ public class SQLExecutor {
 			 */
 
 			if (preparedStatement.execute()) {
-				executorService.execute(new SelectHandlerRunnable(dbConnection, preparedStatement));
+				executorService.execute(new SelectHandlerRunnable(dbConnection, preparedStatement, table));
 			} else {
 				preparedStatement.close();
 				dbConnection.close();

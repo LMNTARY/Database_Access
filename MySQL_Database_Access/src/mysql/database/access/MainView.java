@@ -26,6 +26,7 @@ public class MainView extends Stage {
 	private TextField queryField;
 	private DatabaseAccess databaseAccess;
 	private SQLExecutor sqlExecutor;
+	private SelectTableView table;
 
 	private Button startQuery;
 
@@ -33,8 +34,9 @@ public class MainView extends Stage {
 
 		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
+		table = new SelectTableView();
 		databaseAccess = new DatabaseAccess();
-		sqlExecutor = new SQLExecutor(databaseAccess, executorService);
+		sqlExecutor = new SQLExecutor(databaseAccess, executorService, table);
 
 		this.setTitle("MySQL Database Access");
 		this.setResizable(false);
@@ -104,7 +106,7 @@ public class MainView extends Stage {
 					information.setTitle("Information");
 					information.setHeaderText("SQL statement was executed.");
 					information.setContentText("Execution of SQL statement '" + query + "' was successful.");
-
+					information.showAndWait();
 				}
 			}
 		});
